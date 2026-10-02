@@ -25,7 +25,7 @@ def template():
  host_policy=[allow(ssm,'*'),allow('s3:GetObjectVersion',sub('arn:${AWS::Partition}:s3:::${ArtifactBucket}/${ArtifactKey}'),Condition={'StringEquals':{'s3:VersionId':ref('ArtifactVersion')}}),{'Effect':'Deny','Action':['ssm:GetParameter*','secretsmanager:*','kms:*','sts:AssumeRole','iam:*'],'Resource':'*'}]
  r['HostRole']={'Type':'AWS::IAM::Role','Properties':{'AssumeRolePolicyDocument':trust('ec2.amazonaws.com'),'Policies':[{'PolicyName':'OnlyApprovedWorkerAndSessionTransport','PolicyDocument':policy(host_policy)}]}}
  r['HostProfile']={'Type':'AWS::IAM::InstanceProfile','Properties':{'Roles':[ref('HostRole')]}}
- r['WorkerGroup']={'Type':'AWS::EC2::SecurityGroup','Properties':{'VpcId':ref('VpcId'),'GroupDescription':'OpenPeer manual worker: no ingress, outbound TLS only','SecurityGroupEgress':[{'IpProtocol':'tcp','FromPort':443,'ToPort':443,'CidrIp':'0.0.0.0/0'}]}}
+ r['WorkerGroup']={'Type':'AWS::EC2::SecurityGroup','Properties':{'VpcId':ref('VpcId'),'GroupDescription':'Peer Link manual worker: no ingress, outbound TLS only','SecurityGroupEgress':[{'IpProtocol':'tcp','FromPort':443,'ToPort':443,'CidrIp':'0.0.0.0/0'}]}}
  startup='''#!/bin/bash
 set -euo pipefail
 umask 077
@@ -34,8 +34,8 @@ trap 'shutdown -h now' ERR
 dnf install -y aws-nitro-enclaves-cli-1.5.0 aws-nitro-enclaves-cli-devel-1.5.0 python3.11 python3.11-pip
 printf '%s\\n' '---' 'memory_mib: 2048' 'cpu_count: 2' > /etc/nitro_enclaves/allocator.yaml
 systemctl enable --now nitro-enclaves-allocator.service
-install -d -m 700 /opt/openpeer
-cd /opt/openpeer
+install -d -m 700 /opt/peer-link
+cd /opt/peer-link
 aws s3api get-object --region ${AWS::Region} --bucket '${ArtifactBucket}' --key '${ArtifactKey}' --version-id '${ArtifactVersion}' worker.tar.gz >/dev/null
 echo '${ArtifactSha256}  worker.tar.gz' | sha256sum -c -
 tar --no-same-owner -xzf worker.tar.gz
@@ -48,17 +48,17 @@ nohup venv/bin/python -m verification.parent_gateway --cid 16 --port 8443 </dev/
  # Parameter strings enter a shell only after CFN validation. Object coordinates
  # have a restricted alphabet, never caller-supplied runtime inputs.
  for name,pattern in [('ArtifactBucket','[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]'),('ArtifactKey','[A-Za-z0-9/_-]+[.]tar[.]gz'),('ArtifactVersion','[-A-Za-z0-9._/+=]+')]:params[name]['AllowedPattern']=pattern
- tags=[{'Key':'Project','Value':'openpeer'},{'Key':'OpenPeerControlStack','Value':ref('AWS::StackId')}]
+ tags=[{'Key':'Project','Value':'peer-link'},{'Key':'PeerLinkControlStack','Value':ref('AWS::StackId')}]
  r['WorkerTemplate']={'Type':'AWS::EC2::LaunchTemplate','Properties':{'LaunchTemplateData':{'ImageId':ref('ImageId'),'InstanceType':'c6i.xlarge','IamInstanceProfile':{'Arn':{'Fn::GetAtt':['HostProfile','Arn']}},'EnclaveOptions':{'Enabled':True},'MetadataOptions':{'HttpTokens':'required','HttpPutResponseHopLimit':1},'InstanceInitiatedShutdownBehavior':'terminate','BlockDeviceMappings':[{'DeviceName':'/dev/xvda','Ebs':{'VolumeSize':24,'VolumeType':'gp3','Encrypted':True,'DeleteOnTermination':True}}],'NetworkInterfaces':[{'DeviceIndex':0,'AssociatePublicIpAddress':True,'SubnetId':ref('SubnetId'),'Groups':[ref('WorkerGroup')]}],'TagSpecifications':[{'ResourceType':kind,'Tags':tags} for kind in ['instance','volume']],'UserData':{'Fn::Base64':sub(startup)}}}}
  lt_arn=sub('arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:launch-template/${WorkerTemplate}')
- controller_policy=[allow(['dynamodb:GetItem','dynamodb:PutItem','dynamodb:UpdateItem','dynamodb:ConditionCheckItem'],arn('Ledger')),allow('iam:PassRole',arn('HostRole'),Condition={'StringEquals':{'iam:PassedToService':'ec2.amazonaws.com'}}),allow('ec2:RunInstances','*',Condition={'ArnEquals':{'ec2:LaunchTemplate':lt_arn},'StringEqualsIfExists':{'ec2:InstanceType':'c6i.xlarge'}}),allow('ec2:CreateTags',sub('arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:*/*'),Condition={'StringEquals':{'ec2:CreateAction':'RunInstances','aws:RequestTag/Project':'openpeer'}})]
+ controller_policy=[allow(['dynamodb:GetItem','dynamodb:PutItem','dynamodb:UpdateItem','dynamodb:ConditionCheckItem'],arn('Ledger')),allow('iam:PassRole',arn('HostRole'),Condition={'StringEquals':{'iam:PassedToService':'ec2.amazonaws.com'}}),allow('ec2:RunInstances','*',Condition={'ArnEquals':{'ec2:LaunchTemplate':lt_arn},'StringEqualsIfExists':{'ec2:InstanceType':'c6i.xlarge'}}),allow('ec2:CreateTags',sub('arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:*/*'),Condition={'StringEquals':{'ec2:CreateAction':'RunInstances','aws:RequestTag/Project':'peer-link'}})]
  r['ControllerRole']={'Type':'AWS::IAM::Role','Properties':{'AssumeRolePolicyDocument':trust('lambda.amazonaws.com'),'Policies':[{'PolicyName':'FixedTemplateAndLedgerOnly','PolicyDocument':policy(controller_policy)}]}}
- r['Controller']={'Type':'AWS::Lambda::Function','Properties':{'FunctionName':'openpeer-manual-launch-pilot','Runtime':'python3.12','Handler':'index.handler','Role':arn('ControllerRole'),'Timeout':30,'MemorySize':128,'Environment':{'Variables':{'TABLE':ref('Ledger'),'LAUNCH_TEMPLATE':ref('WorkerTemplate'),'TEMPLATE_VERSION':{'Fn::GetAtt':['WorkerTemplate','LatestVersionNumber']},'RELEASE_DIGEST':ref('ReleaseDigest'),'DISPATCH_ENABLED':ref('DispatchEnabled')}},'Code':{'ZipFile':Path(__file__).with_name('launch_controller.py').read_text()}}}
+ r['Controller']={'Type':'AWS::Lambda::Function','Properties':{'FunctionName':'peer-link-manual-launch-pilot','Runtime':'python3.12','Handler':'index.handler','Role':arn('ControllerRole'),'Timeout':30,'MemorySize':128,'Environment':{'Variables':{'TABLE':ref('Ledger'),'LAUNCH_TEMPLATE':ref('WorkerTemplate'),'TEMPLATE_VERSION':{'Fn::GetAtt':['WorkerTemplate','LatestVersionNumber']},'RELEASE_DIGEST':ref('ReleaseDigest'),'DISPATCH_ENABLED':ref('DispatchEnabled')}},'Code':{'ZipFile':Path(__file__).with_name('launch_controller.py').read_text()}}}
  expiry='''import boto3,datetime,os,time
 
 def handler(event,context):
  ec2=boto3.client('ec2');ddb=boto3.client('dynamodb');table=os.environ['TABLE']
- response=ec2.describe_instances(Filters=[{'Name':'tag:OpenPeerControlStack','Values':[os.environ['STACK_ID']]},{'Name':'instance-state-name','Values':['pending','running','stopping','stopped']}])
+ response=ec2.describe_instances(Filters=[{'Name':'tag:PeerLinkControlStack','Values':[os.environ['STACK_ID']]},{'Name':'instance-state-name','Values':['pending','running','stopping','stopped']}])
  now=datetime.datetime.now(datetime.timezone.utc)
  active=[i for r in response['Reservations'] for i in r['Instances']]
  expired=[i['InstanceId'] for i in active if (now-i['LaunchTime']).total_seconds()>6600 or i['State']['Name'] in ('stopping','stopped')]
@@ -72,11 +72,11 @@ def handler(event,context):
   if done:ddb.delete_item(TableName=table,Key={'id':{'S':'active'}},ConditionExpression='approvalId = :approval',ExpressionAttributeValues={':approval':lease['approvalId']})
  return {'terminated':len(expired),'active':len(active)}
 '''
- r['ExpiryRole']={'Type':'AWS::IAM::Role','Properties':{'AssumeRolePolicyDocument':trust('lambda.amazonaws.com'),'Policies':[{'PolicyName':'ReconcileOnlyThisController','PolicyDocument':policy([allow('ec2:DescribeInstances','*'),allow('ec2:TerminateInstances',sub('arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:instance/*'),Condition={'StringEquals':{'ec2:ResourceTag/OpenPeerControlStack':ref('AWS::StackId')}}),allow(['dynamodb:GetItem','dynamodb:DeleteItem'],arn('Ledger'),Condition={'ForAllValues:StringEquals':{'dynamodb:LeadingKeys':['active']}})])}]}}
+ r['ExpiryRole']={'Type':'AWS::IAM::Role','Properties':{'AssumeRolePolicyDocument':trust('lambda.amazonaws.com'),'Policies':[{'PolicyName':'ReconcileOnlyThisController','PolicyDocument':policy([allow('ec2:DescribeInstances','*'),allow('ec2:TerminateInstances',sub('arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:instance/*'),Condition={'StringEquals':{'ec2:ResourceTag/PeerLinkControlStack':ref('AWS::StackId')}}),allow(['dynamodb:GetItem','dynamodb:DeleteItem'],arn('Ledger'),Condition={'ForAllValues:StringEquals':{'dynamodb:LeadingKeys':['active']}})])}]}}
  r['Expiry']={'Type':'AWS::Lambda::Function','Properties':{'Runtime':'python3.12','Handler':'index.handler','Role':arn('ExpiryRole'),'Timeout':30,'MemorySize':128,'Environment':{'Variables':{'TABLE':ref('Ledger'),'STACK_ID':ref('AWS::StackId')}},'Code':{'ZipFile':expiry}}}
  r['Schedule']={'Type':'AWS::Events::Rule','Properties':{'ScheduleExpression':'rate(5 minutes)','State':'ENABLED','Targets':[{'Arn':arn('Expiry'),'Id':'ExpireWorkers','RetryPolicy':{'MaximumRetryAttempts':2,'MaximumEventAgeInSeconds':300}}]}}
  r['ExpiryPermission']={'Type':'AWS::Lambda::Permission','Properties':{'FunctionName':ref('Expiry'),'Action':'lambda:InvokeFunction','Principal':'events.amazonaws.com','SourceArn':arn('Schedule'),'SourceAccount':ref('AWS::AccountId')}}
  r['ExpiryErrors']={'Type':'AWS::CloudWatch::Alarm','Properties':{'Namespace':'AWS/Lambda','MetricName':'Errors','Dimensions':[{'Name':'FunctionName','Value':ref('Expiry')}],'Statistic':'Sum','Period':300,'EvaluationPeriods':1,'Threshold':1,'ComparisonOperator':'GreaterThanOrEqualToThreshold','TreatMissingData':'notBreaching'}}
- return {'AWSTemplateFormatVersion':'2010-09-09','Description':'OpenPeer isolated manual controller; disabled by default. No bank credentials.','Parameters':params,'Resources':r,'Outputs':{'Table':{'Value':ref('Ledger')},'Controller':{'Value':ref('Controller')},'Expiry':{'Value':ref('Expiry')},'Template':{'Value':ref('WorkerTemplate')}}}
+ return {'AWSTemplateFormatVersion':'2010-09-09','Description':'Peer Link isolated manual controller; disabled by default. No bank credentials.','Parameters':params,'Resources':r,'Outputs':{'Table':{'Value':ref('Ledger')},'Controller':{'Value':ref('Controller')},'Expiry':{'Value':ref('Expiry')},'Template':{'Value':ref('WorkerTemplate')}}}
 
 if __name__=='__main__':print(json.dumps(template(),indent=2))

@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "OpenPeer verification-only VPC. No peering, NAT, ingress or Peer service access.",
+  "Description": "Peer Link verification-only VPC. No peering, NAT, ingress or Peer service access.",
   "Resources": {
     "Vpc": {
       "Type": "AWS::EC2::VPC",
@@ -11,11 +11,11 @@
         "Tags": [
           {
             "Key": "Project",
-            "Value": "openpeer"
+            "Value": "peer-link"
           },
           {
             "Key": "Owner",
-            "Value": "openpeer"
+            "Value": "peer-link"
           },
           {
             "Key": "Environment",
@@ -23,7 +23,7 @@
           },
           {
             "Key": "Name",
-            "Value": "openpeer-verification"
+            "Value": "peer-link-verification"
           }
         ]
       }
@@ -34,11 +34,11 @@
         "Tags": [
           {
             "Key": "Project",
-            "Value": "openpeer"
+            "Value": "peer-link"
           },
           {
             "Key": "Owner",
-            "Value": "openpeer"
+            "Value": "peer-link"
           },
           {
             "Key": "Environment",
@@ -46,7 +46,7 @@
           },
           {
             "Key": "Name",
-            "Value": "openpeer-verification"
+            "Value": "peer-link-verification"
           }
         ]
       }
@@ -73,11 +73,11 @@
         "Tags": [
           {
             "Key": "Project",
-            "Value": "openpeer"
+            "Value": "peer-link"
           },
           {
             "Key": "Owner",
-            "Value": "openpeer"
+            "Value": "peer-link"
           },
           {
             "Key": "Environment",
@@ -85,7 +85,7 @@
           },
           {
             "Key": "Name",
-            "Value": "openpeer-verification"
+            "Value": "peer-link-verification"
           }
         ]
       }
@@ -99,11 +99,11 @@
         "Tags": [
           {
             "Key": "Project",
-            "Value": "openpeer"
+            "Value": "peer-link"
           },
           {
             "Key": "Owner",
-            "Value": "openpeer"
+            "Value": "peer-link"
           },
           {
             "Key": "Environment",
@@ -111,7 +111,7 @@
           },
           {
             "Key": "Name",
-            "Value": "openpeer-verification"
+            "Value": "peer-link-verification"
           }
         ]
       }

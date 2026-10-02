@@ -1,13 +1,13 @@
 # Isolated Nitro pilot runbook
 
-Owner: OpenPeer. Environment: pilot. Scope: a new tagged Nitro build/test host only.
+Owner: Peer Link. Environment: pilot. Scope: a new tagged Nitro build/test host only.
 The deployer must supply and verify its AWS account, profile, region, VPC and subnet.
 Never reuse an existing payment attestor, its keys, or its bank sessions.
 
 Before provisioning:
 
 1. Record caller identity, region, exact source commit and local tests. Confirm no
-   existing OpenPeer pilot is running. Verify the subnet belongs to the specified VPC.
+   existing Peer Link pilot is running. Verify the subnet belongs to the specified VPC.
 2. Estimate c6i.xlarge instance, 24 GB gp3 volume, public IPv4 and transfer charges.
    Reserve a conservative upper bound in `verification.cli reserve-expense` within
    the task's $50 cap. AWS credits do not increase the authorized spending limit.

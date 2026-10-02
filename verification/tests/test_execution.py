@@ -43,13 +43,13 @@ class ExecutionTests(unittest.TestCase):
                    'policy': self.runtime.policy_digest, 'prompt': 'c'*64}
         key_digest = hashlib.sha256(self.runtime.channel.public_key_der).hexdigest()
         expires = int(time.time()) + 90
-        grant = admit({'audience':'openplaid-challenge-v1','attempt':'attempt',
+        grant = admit({'audience':'peer-link-challenge-v1','attempt':'attempt',
             'bindingDigest':digest(binding),'policyDigest':binding['policy'],
             'enclaveKeyDigest':key_digest,'expiresAt':expires}, self.operator)
         context = self.runtime.channel.challenge_authorized(grant,
             operator_public_key=unb64(self.runtime.operator['permitPublicKey']),
             policy_digest=binding['policy'])
-        permit = issue({'audience':'openplaid-verification-v1','attempt':'attempt','ticket':'ticket',
+        permit = issue({'audience':'peer-link-verification-v1','attempt':'attempt','ticket':'ticket',
             'artifactDigest':binding['revision'],'policyDigest':binding['policy'],
             'enclaveKeyDigest':key_digest,'challenge':context['nonce'],
             'expiresAt':expires,'maximumMicroUsd':50000}, self.operator)
@@ -117,12 +117,12 @@ class ExecutionTests(unittest.TestCase):
         binding={**request['binding'],'release':digest(self.release)}
         expires=int(time.time())+90
         key_digest=hashlib.sha256(self.runtime.channel.public_key_der).hexdigest()
-        grant=admit({'audience':'openplaid-challenge-v1','attempt':'client-attempt',
+        grant=admit({'audience':'peer-link-challenge-v1','attempt':'client-attempt',
             'bindingDigest':digest(binding),'policyDigest':binding['policy'],
             'enclaveKeyDigest':key_digest,'expiresAt':expires},self.operator)
         context=self.runtime.channel.challenge_authorized(grant,
             operator_public_key=unb64(self.runtime.operator['permitPublicKey']),policy_digest=binding['policy'])
-        permit=issue({'audience':'openplaid-verification-v1','attempt':'client-attempt','ticket':'ticket',
+        permit=issue({'audience':'peer-link-verification-v1','attempt':'client-attempt','ticket':'ticket',
             'artifactDigest':binding['revision'],'policyDigest':binding['policy'],
             'enclaveKeyDigest':key_digest,'challenge':context['nonce'],
             'expiresAt':expires,'maximumMicroUsd':50000},self.operator)

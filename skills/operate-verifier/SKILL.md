@@ -1,6 +1,6 @@
 ---
 name: operate-verifier
-description: Inspect OpenPeer verification readiness, review contribution admission, and record bounded agent judgments through JSON interfaces. Does not enable a scheduler or authorize payouts.
+description: Inspect Peer Link verification readiness, review contribution admission, and record bounded agent judgments through JSON interfaces. Does not enable a scheduler or authorize payouts.
 ---
 
 # Operate the verifier

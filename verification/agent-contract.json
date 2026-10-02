@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "service": "openplaid-verification",
+  "service": "peer-link-verification",
   "status": "development",
   "discovery": {
     "instructions": "skills/operate-verifier/SKILL.md",

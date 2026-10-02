@@ -31,7 +31,7 @@ class RuntimeTests(unittest.TestCase):
             signer = Ed25519PrivateKey.generate()
             runtime.operator = {"enabled": True, "permitPublicKey": b64(signer.public_key().public_bytes(
                 serialization.Encoding.Raw, serialization.PublicFormat.Raw))}
-            grant = issue({"audience": "openplaid-challenge-v1", "attempt": "attempt-1",
+            grant = issue({"audience": "peer-link-challenge-v1", "attempt": "attempt-1",
                 "bindingDigest": "a" * 64, "policyDigest": runtime.policy_digest,
                 "enclaveKeyDigest": hashlib.sha256(runtime.channel.public_key_der).hexdigest(),
                 "expiresAt": int(time.time()) + 60}, Ed25519PrivateKey.generate())

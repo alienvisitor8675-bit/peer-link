@@ -37,7 +37,7 @@ class AdapterCheckTests(unittest.TestCase):
 
     def arguments(self):
         module = bytes(emit_module(canonical(self.output)))
-        claims = {'audience': 'openplaid-verification-v1', 'attempt': 'attempt-1', 'ticket': 'ticket-1',
+        claims = {'audience': 'peer-link-verification-v1', 'attempt': 'attempt-1', 'ticket': 'ticket-1',
                   'artifactDigest': hashlib.sha256(module).hexdigest(), 'policyDigest': 'c' * 64,
                   'enclaveKeyDigest': 'b' * 64, 'challenge': 'd' * 64,
                   'expiresAt': int(time.time()) + 60, 'maximumMicroUsd': 50000}

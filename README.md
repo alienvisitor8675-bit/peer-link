@@ -1,4 +1,4 @@
-# OpenPeer
+# Peer Link
 
 **Banking integrations, built together.**
 
@@ -12,7 +12,7 @@ An MIT-licensed library of bank adapters, payment semantics, privacy-safe fixtur
 
 Give your browser-capable coding agent this prompt:
 
-> Read AGENTS.md and skills/contribute-bank/SKILL.md in https://github.com/zkp2p/openpeer. Help me contribute my bank's payment integration. Keep raw captures and credentials local. Start by identifying the bank, supported transaction type and evidence needed to interpret the bank record’s payer, payee, amount, currency and status. Do not initiate payments.
+> Read AGENTS.md and skills/contribute-bank/SKILL.md in https://github.com/zkp2p/peer-link. Help me contribute my bank's payment integration. Keep raw captures and credentials local. Start by identifying the bank, supported transaction type and evidence needed to interpret the bank record’s payer, payee, amount, currency and status. Do not initiate payments.
 
 No extension is required. Your agent needs its own authorized browser tooling; this repository does not provide remote bank access. You sign into your own bank normally.
 
@@ -21,8 +21,8 @@ No extension is required. Your agent needs its own authorized browser tooling; t
 Node 20.19+, npm, Python 3.11+ and OpenSSL. No secrets or bank account required for fixture tests.
 
 ```sh
-git clone https://github.com/zkp2p/openpeer.git
-cd openpeer
+git clone https://github.com/zkp2p/peer-link.git
+cd peer-link
 npm ci --ignore-scripts
 npm run verify:setup
 npm run check
@@ -39,11 +39,11 @@ Community reports are revision-specific claims, not certified unique people or b
 
 ## Agent maintenance and verification
 
-OpenPeer is designed for agent-assisted maintenance. Public prompts, explicit policies and machine-readable decisions make reviews inspectable. A private verifier is being built to authenticate bank evidence inside an AWS enclave, with deterministic reference checks and explicit account-owner consent.
+Peer Link is designed for agent-assisted maintenance. Public prompts, explicit policies and machine-readable decisions make reviews inspectable. A private verifier is being built to authenticate bank evidence inside an AWS enclave, with deterministic reference checks and explicit account-owner consent.
 
 **Current status: development, not a live verification service.** No scheduled agent tasks or automatic payouts are enabled. The old unfunded round is being replaced; see the current incentive terms.
 
-**Venice remains disabled:** OpenPeer has not independently verified its TEE execution and end-to-end response authenticity. Bank data is not forwarded to Venice or OpenAI. The [synthetic agent evaluation](docs/verification.md#synthetic-agent-evaluation) tests the advisory review task only; success does not establish Venice model accuracy or TEE security.
+**Venice remains disabled:** Peer Link has not independently verified its TEE execution and end-to-end response authenticity. Bank data is not forwarded to Venice or OpenAI. The [synthetic agent evaluation](docs/verification.md#synthetic-agent-evaluation) tests the advisory review task only; success does not establish Venice model accuracy or TEE security.
 
 September 23, 2026 validation:
 
@@ -67,6 +67,6 @@ CI publishes each builder's experimental unsigned `normalized.eif` with its meas
 
 [Contribution guide](CONTRIBUTING.md) · [Privacy rules](docs/privacy.md) · [Security](SECURITY.md)
 
-OpenPeer is an independent community project. It is not affiliated with, endorsed by, or sponsored by Plaid Inc. or named financial institutions. Bank names identify integrations only.
+Peer Link is an independent community project. It is not affiliated with, endorsed by, or sponsored by Plaid Inc. or named financial institutions. Bank names identify integrations only.
 
-Copyright (c) 2026 Sachin Kumar and OpenPeer contributors. [MIT](LICENSE).
+Copyright (c) 2026 Sachin Kumar and Peer Link contributors. [MIT](LICENSE).

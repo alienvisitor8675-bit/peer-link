@@ -5,9 +5,10 @@
     "country": "UA",
     "currency": "UAH",
     "amount": 50,
-    "issue": "https://github.com/zkp2p/openpeer/issues/6",
+    "issue": "https://github.com/zkp2p/peer-link/issues/6",
     "logo": "/logos/monobank.png",
-    "mark": "M"
+    "mark": "M",
+    "scope": "Adapter proposal"
   },
   {
     "id": 8,
@@ -15,8 +16,42 @@
     "country": "VN",
     "currency": "VND",
     "amount": 50,
-    "issue": "https://github.com/zkp2p/openpeer/issues/8",
+    "issue": "https://github.com/zkp2p/peer-link/issues/8",
     "logo": "/logos/vietcombank.png",
-    "mark": "V"
+    "mark": "V",
+    "scope": "Adapter proposal"
+  },
+  {
+    "id": "chase",
+    "name": "Chase",
+    "country": "US",
+    "currency": "USD",
+    "amount": 25,
+    "issue": "https://github.com/zkp2p/peer-link/blob/main/docs/incentives.md",
+    "logo": null,
+    "mark": "C",
+    "scope": "Feasibility proposal"
+  },
+  {
+    "id": "bank-of-america",
+    "name": "Bank of America",
+    "country": "US",
+    "currency": "USD",
+    "amount": 25,
+    "issue": "https://github.com/zkp2p/peer-link/blob/main/docs/incentives.md",
+    "logo": null,
+    "mark": "B",
+    "scope": "Feasibility proposal"
+  },
+  {
+    "id": "wells-fargo",
+    "name": "Wells Fargo",
+    "country": "US",
+    "currency": "USD",
+    "amount": 25,
+    "issue": "https://github.com/zkp2p/peer-link/blob/main/docs/incentives.md",
+    "logo": null,
+    "mark": "W",
+    "scope": "Feasibility proposal"
   }
 ]

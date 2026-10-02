@@ -62,7 +62,7 @@ See [prioritization evidence](integration-priorities.md).
    are evaluated by the named reviewer against the written criteria; disclose
    conflicts of interest.
 
-The [Merit project](https://terminal.merit.systems/0xSachinK/openplaid) remains the
+The [Merit project](https://terminal.merit.systems/zkp2p/peer-link) remains the
 allocation and payout reference until its repository transfer is reconciled.
 Contributors complete any tax, wallet and eligibility setup directly with Merit.
 Vietnam payout eligibility has **not** been independently confirmed; a Vietnamese

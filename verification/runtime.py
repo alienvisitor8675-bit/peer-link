@@ -100,7 +100,7 @@ class Runtime:
         if outcome == "consistent":
             require(result.get("sourceAuthenticated") is True, "source_not_authenticated")
         now = int(time.time())
-        receipt = sign_receipt({"audience": "openplaid-contribution-verification-v1",
+        receipt = sign_receipt({"audience": "peer-link-contribution-verification-v1",
             "attempt": claims["attempt"], "ticket": claims["ticket"],
             "bindingDigest": digest(binding), "capability": CAPABILITY,
             "result": "verified" if outcome == "consistent" else outcome,

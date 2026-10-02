@@ -1,6 +1,6 @@
 # Promoting an adapter into Peer
 
-The public contract is version 2 (`openpeer` 0.2.0). It consists of an original
+The public contract is version 2 (`peer-link` 0.2.0). It consists of an original
 pure `BankAdapter.interpret(evidence, transactionId)` and a `PaymentObservation`.
 It contains no private Peer implementation or fixtures.
 

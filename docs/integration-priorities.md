@@ -28,4 +28,4 @@ Primary sources, checked October 2, 2026:
 - [Vietcombank transaction-history guide](https://digibankm5.vietcombank.com.vn/get_file/ibomni/html/hdsd-ib/pages/vi/tinh-nang-giao-dich-ngan-hang/tai-khoan/3-lich-su-giao-dich.html): history access, not an assurance of exact recipient semantics.
 - [Mercury API getting started](https://docs.mercury.com/docs/getting-started): read-only tokens are available. Prefer a separately reviewed read-only API surface over a powerful browser session when it can establish the necessary fields; it is not interchangeable with the existing web adapter.
 - [Federal Reserve large-bank data](https://www.federalreserve.gov/releases/lbr/): footprint proxy only, not Peer usage or transfer demand.
-- [Vietcombank lead](https://github.com/zkp2p/openpeer/issues/8) and [Monobank lead](https://github.com/zkp2p/openpeer/issues/6): neither is evidence of an earned payout or a verified live adapter.
+- [Vietcombank lead](https://github.com/zkp2p/peer-link/issues/8) and [Monobank lead](https://github.com/zkp2p/peer-link/issues/6): neither is evidence of an earned payout or a verified live adapter.

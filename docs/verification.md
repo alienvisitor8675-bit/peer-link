@@ -15,7 +15,7 @@ exact revisions; they are not current release approval. External AI processing o
 bank records is forbidden in the manual flow. No three-user launch gate applies.
 
 
-OpenPeer is building a verifier that checks real bank evidence while keeping session
+Peer Link is building a verifier that checks real bank evidence while keeping session
 secrets inside an independently verifiable enclave. Agents can inspect the code,
 public prompts, policies and release measurements before asking an account owner
 to consent. AI advice does not independently authorize acceptance or payment.
@@ -119,7 +119,7 @@ adversarial holdouts must be stored separately and never run on untrusted PR hos
 
 Passing tests is not proof of no vulnerabilities. This development verifier has not
 been independently audited. Mercury's current parser describes sender-bank-reported
-sent domestic USD wires, not recipient credit or irreversible settlement. An OpenPeer
+sent domestic USD wires, not recipient credit or irreversible settlement. An Peer Link
 verification result is not a Peer settlement signature. Signing, merging and payout
 authority must remain separate from untrusted adapter code and model output.
 
@@ -219,7 +219,7 @@ CPU diagnostics use the [DCAP verifier's strict policy](https://github.com/Phala
 
 ### Contributor sandbox
 
-[Linux CI run 35835007397](https://github.com/zkp2p/openpeer/actions/runs/35835007397)
+[Linux CI run 35835007397](https://github.com/zkp2p/peer-link/actions/runs/35835007397)
 passed all 124 tests and the five-case real Mercury Wasm smoke on commit `6563257`.
 The worker retains its 1 GiB Linux address-space limit and disables extra Wasmtime
 growth reservations. This is synthetic execution evidence, not authenticated bank
@@ -638,7 +638,7 @@ run ID and both reports' `sourceCommit` (PR CI builds the merge checkout). Downl
 without executing the images:
 
 ```sh
-gh run download <run-id> --repo zkp2p/openpeer --pattern 'nitro-build-*' --dir <empty-output-directory>
+gh run download <run-id> --repo zkp2p/peer-link --pattern 'nitro-build-*' --dir <empty-output-directory>
 ```
 
 Hash each `normalized.eif` with SHA-384 and compare it with that artifact's
@@ -667,7 +667,7 @@ independently inspect; they do not prove that a contribution deserves acceptance
 
 ### Synthetic agent evaluation
 
-For this development release, Venice remains disabled. OpenPeer has not independently
+For this development release, Venice remains disabled. Peer Link has not independently
 verified Venice's TEE execution and end-to-end response authenticity. No bank data is
 forwarded to Venice or OpenAI. Enabling a real provider, approving a signed live
 release and full hardware end-to-end verification are deferred work, not merge gates

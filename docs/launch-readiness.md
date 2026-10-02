@@ -1,14 +1,14 @@
 # Launch review — October 2, 2026
 
-**Production is on hold.** OpenPeer is the working name. Peer Adapters is the
-recommended public name because [OpenPeer already identifies a P2P crypto
-product](https://github.com/openpeer/openpeer). No three-user testing gate applies.
+**Production is on hold.** Peer Link is the working name. Peer Adapters is the
+recommended public name because [Peer Link already identifies a P2P crypto
+product](https://github.com/peer-link/peer-link). No three-user testing gate applies.
 
 ## Gap assessment and completed work
 
 | Area | Finding and implementation | Remaining release gate |
 | --- | --- | --- |
-| Repository | Canonical workspace migration preserved Git history, uncommitted work and linked worktrees. Rebrand and contract v2 are prepared in a separate launch branch. | GitHub transfer to `zkp2p/openpeer` is verified by stable repository ID. Publish the reviewed branch and enforce protections. |
+| Repository | Canonical workspace migration preserved Git history, uncommitted work and linked worktrees. Rebrand and contract v2 are prepared in a separate launch branch. | GitHub transfer to `zkp2p/peer-link` is verified by stable repository ID. Publish the reviewed branch and enforce protections. |
 | Private adoption | Original public candidate mapping makes precision, identity provenance and unauthenticated source status explicit. Private Peer code and signing fields stay private. | Each bank still needs its own private-service review and production approval. |
 | Verifier | The previous components were not a deployable end-to-end manual service. Runtime execution, owner client, exact-version receipts, minimization and controller admission are now connected. | Independent rebuild and hardware validation of the final release candidate; approved source policy, signing identity and owner-consented live test. |
 | Deployment | Dedicated VPC, least-privilege roles, immutable worker launch settings, durable budget/lease and external cleanup were exercised on AWS. | Enforce GitHub branch/environment protection, publish a pinned controller version and configure an invoke-only OIDC role. These are not established by YAML alone. |
@@ -88,14 +88,14 @@ and worker artifacts are disposable; no production release is implied.
 The reviewed docs preview currently corresponds to commit
 `2a02990968ac0d933f48d42106db75dfab6713a4`, deployment
 `dpl_BVMWUrgbDcJgeRYS9FtbU9x8yaQa`; [CI run 9525](https://github.com/zkp2p/zkp2p-clients/actions/runs/36987404971)
-and all four Vercel preview builds passed. The [docs preview](https://docs-igi4o7mp0-zkp2p.vercel.app/developer/openpeer)
+and all four Vercel preview builds passed. The [docs preview](https://docs-igi4o7mp0-zkp2p.vercel.app/developer/peer-link)
 was checked in the browser, including the source-to-settlement unit example. The previous
 docs production coordinate is commit `39918abc349f0e0e9142230738c7f8850c964d41`,
 deployment `dpl_BzUq3XgEVqWyFS5AGh1nedpJSue7`. Re-read these immediately before
 approval/promotion because other releases can advance them. No production
 verifier exists to roll back to; disabling admission is its safe baseline.
 
-1. The repository transfer to `zkp2p/openpeer` is complete. Publish the reviewed launch branch. Verify
+1. The repository transfer to `zkp2p/peer-link` is complete. Publish the reviewed launch branch. Verify
    required CI, CODEOWNERS enforcement, main protection and protected manual
    environment settings. Keep ordinary PR CI free of AWS/signing/bank credentials.
 2. Confirm the Merit project allocation, recheck claims, publish exact bank scopes

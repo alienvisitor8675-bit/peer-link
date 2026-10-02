@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "OpenPeer isolated Nitro synthetic pilot. No ingress or application secrets; external expiry guard.",
+  "Description": "Peer Link isolated Nitro synthetic pilot. No ingress or application secrets; external expiry guard.",
   "Parameters": {
     "VpcId": {
       "Type": "AWS::EC2::VPC::Id"
@@ -32,7 +32,7 @@
         "Tags": [
           {
             "Key": "Project",
-            "Value": "openpeer"
+            "Value": "peer-link"
           },
           {
             "Key": "Environment",
@@ -93,7 +93,7 @@
     "SecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
-        "GroupDescription": "OpenPeer synthetic build: no ingress; outbound TLS only",
+        "GroupDescription": "Peer Link synthetic build: no ingress; outbound TLS only",
         "VpcId": {
           "Ref": "VpcId"
         },
@@ -108,7 +108,7 @@
         "Tags": [
           {
             "Key": "Project",
-            "Value": "openpeer"
+            "Value": "peer-link"
           }
         ]
       }
@@ -159,11 +159,11 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "openpeer-verifier-pilot"
+            "Value": "peer-link-verifier-pilot"
           },
           {
             "Key": "Project",
-            "Value": "openpeer"
+            "Value": "peer-link"
           },
           {
             "Key": "Environment",
@@ -171,7 +171,7 @@
           },
           {
             "Key": "Owner",
-            "Value": "openpeer"
+            "Value": "peer-link"
           }
         ],
         "UserData": {
@@ -186,7 +186,7 @@
                 "systemctl enable --now docker",
                 "printf '%s\\n' '---' 'memory_mib: 2048' 'cpu_count: 2' > /etc/nitro_enclaves/allocator.yaml",
                 "systemctl enable --now nitro-enclaves-allocator.service",
-                "install -d -m 700 /opt/openplaid"
+                "install -d -m 700 /opt/peer-link"
               ]
             ]
           }
@@ -300,7 +300,7 @@
     "ExpiryErrors": {
       "Type": "AWS::CloudWatch::Alarm",
       "Properties": {
-        "AlarmDescription": "OpenPeer expiry guard failing: inspect and terminate only this pilot stack.",
+        "AlarmDescription": "Peer Link expiry guard failing: inspect and terminate only this pilot stack.",
         "Namespace": "AWS/Lambda",
         "MetricName": "Errors",
         "Dimensions": [
