@@ -27,7 +27,7 @@
     "country": "US",
     "currency": "USD",
     "amount": 25,
-    "issue": "https://github.com/zkp2p/peer-link/blob/main/docs/incentives.md",
+    "issue": "https://github.com/zkp2p/peer-link/issues/73",
     "logo": null,
     "mark": "C",
     "scope": "Feasibility proposal"
@@ -38,7 +38,7 @@
     "country": "US",
     "currency": "USD",
     "amount": 25,
-    "issue": "https://github.com/zkp2p/peer-link/blob/main/docs/incentives.md",
+    "issue": "https://github.com/zkp2p/peer-link/issues/74",
     "logo": null,
     "mark": "B",
     "scope": "Feasibility proposal"
@@ -49,7 +49,7 @@
     "country": "US",
     "currency": "USD",
     "amount": 25,
-    "issue": "https://github.com/zkp2p/peer-link/blob/main/docs/incentives.md",
+    "issue": "https://github.com/zkp2p/peer-link/issues/75",
     "logo": null,
     "mark": "W",
     "scope": "Feasibility proposal"

@@ -1,20 +1,19 @@
 # Launch review — October 2, 2026
 
-**Production is on hold.** Peer Link is the working name. Peer Adapters is the
-recommended public name because [Peer Link already identifies a P2P crypto
-product](https://github.com/peer-link/peer-link). No three-user testing gate applies.
+**Production is on hold.** The project is named **Peer Link**, as selected by the
+owner. No three-user testing gate applies.
 
 ## Gap assessment and completed work
 
 | Area | Finding and implementation | Remaining release gate |
 | --- | --- | --- |
-| Repository | Canonical workspace migration preserved Git history, uncommitted work and linked worktrees. Rebrand and contract v2 are prepared in a separate launch branch. | GitHub transfer to `zkp2p/peer-link` is verified by stable repository ID. Publish the reviewed branch and enforce protections. |
+| Repository | Canonical workspace migration preserved Git history, uncommitted work and linked worktrees. GitHub transfer and rename to `zkp2p/peer-link` are verified by stable repository ID. Launch PR #72 is published with required CI and review protection. | Independent trusted review and approved merge. The PR author cannot approve their own CODEOWNERS review. |
 | Private adoption | Original public candidate mapping makes precision, identity provenance and unauthenticated source status explicit. Private Peer code and signing fields stay private. | Each bank still needs its own private-service review and production approval. |
 | Verifier | The previous components were not a deployable end-to-end manual service. Runtime execution, owner client, exact-version receipts, minimization and controller admission are now connected. | Independent rebuild and hardware validation of the final release candidate; approved source policy, signing identity and owner-consented live test. |
-| Deployment | Dedicated VPC, least-privilege roles, immutable worker launch settings, durable budget/lease and external cleanup were exercised on AWS. | Enforce GitHub branch/environment protection, publish a pinned controller version and configure an invoke-only OIDC role. These are not established by YAML alone. |
-| Incentives | A 500 USDC sponsor deposit is confirmed. Proposed awards total $175, each bank capped at $50. | Verify project allocation and payout eligibility before announcing funded assignments or replacing old terms. |
-| Docs and copy | One docs page is in [draft PR #2037](https://github.com/zkp2p/zkp2p-clients/pull/2037); Shoku provided review-only copy/video. | Final links/name/terms, checks on the final commit and explicit production approval. |
-| Landing hosting | The current landing project is linked to Sachin's personal Vercel scope. The local rebrand preview builds and renders. | Verify hosting access and the current production rollback deployment before a Peer-hosted promotion; no hosting transfer or production deploy has occurred. |
+| Deployment | Dedicated VPC, least-privilege roles, immutable worker launch settings, durable budget/lease and external cleanup were exercised on AWS. The protected `peer-link-verification` environment now permits only `main`, requires a reviewer, prevents self-review and disables administrator bypass. | Exercise denied-ref/approval cases, publish a pinned controller version and configure an invoke-only OIDC role. Dispatch stays disabled. |
+| Incentives | A 500 USDC sponsor deposit is confirmed. Proposed awards total $175, each bank capped at $50. Claims were checked before retiring 58 non-priority unfunded proposals and replacing the two priority proposals. | Confirm project allocation and payout eligibility before announcing funded assignments. |
+| Docs and copy | Peer Link docs are in [draft PR #2037](https://github.com/zkp2p/zkp2p-clients/pull/2037); final docs CI and preview passed. Shoku provided Peer Link copy and video v6 for review only. | Independent review and explicit production approval. |
+| Landing hosting | The existing Vercel project is renamed `peer-link`, transferred to Peer and connected to `zkp2p/peer-link`. Production and rollback history moved with it. The Peer-hosted preview passed desktop/mobile checks. | Approve production promotion and the final branded domain. Old domains remain compatibility addresses until a replacement is configured and verified. |
 
 ## Concrete security findings
 
@@ -86,20 +85,20 @@ and worker artifacts are disposable; no production release is implied.
 ## Release and rollback proposal
 
 The reviewed docs preview currently corresponds to commit
-`2a02990968ac0d933f48d42106db75dfab6713a4`, deployment
-`dpl_BVMWUrgbDcJgeRYS9FtbU9x8yaQa`; [CI run 9525](https://github.com/zkp2p/zkp2p-clients/actions/runs/36987404971)
-and all four Vercel preview builds passed. The [docs preview](https://docs-igi4o7mp0-zkp2p.vercel.app/developer/peer-link)
+`0edd2dcb59ec805daf13d17bb46c4107e4f3eb9e`, deployment
+`dpl_Gci3fNTkVqjX3pSscxZSxeQ5tmgo`; [CI run 9538](https://github.com/zkp2p/zkp2p-clients/actions/runs/36992657720)
+and all four Vercel preview builds passed. The [docs preview](https://docs-o3gn20ajj-zkp2p.vercel.app/developer/peer-link)
 was checked in the browser, including the source-to-settlement unit example. The previous
 docs production coordinate is commit `39918abc349f0e0e9142230738c7f8850c964d41`,
 deployment `dpl_BzUq3XgEVqWyFS5AGh1nedpJSue7`. Re-read these immediately before
 approval/promotion because other releases can advance them. No production
 verifier exists to roll back to; disabling admission is its safe baseline.
 
-1. The repository transfer to `zkp2p/peer-link` is complete. Publish the reviewed launch branch. Verify
-   required CI, CODEOWNERS enforcement, main protection and protected manual
-   environment settings. Keep ordinary PR CI free of AWS/signing/bank credentials.
-2. Confirm the Merit project allocation, recheck claims, publish exact bank scopes
-   and smaller amounts, then reply to Vietcombank and Monobank. Preserve earned
+1. The repository transfer, branch publication and protection settings are
+   complete. Obtain independent trusted review without bypassing CODEOWNERS or
+   protected-branch checks. Keep ordinary PR CI free of AWS/signing/bank credentials.
+2. Confirm the Merit project allocation, recheck claims, activate the published
+   bank scopes and smaller amounts, then reply to Vietcombank and Monobank. Preserve earned
    obligations. Funding receipts do not themselves activate an award.
 3. Freeze the verifier candidate; obtain independent matching builds, isolated
    signer/operator authority and an approved bank source policy. Repeat hardware

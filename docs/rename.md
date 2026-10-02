@@ -30,9 +30,9 @@ and IAM resource-tag conditions must always be deployed as one reviewed unit.
 
 ## Hosting ownership and rollback
 
-Move the existing landing project into Peer's Vercel team so its deployments,
-domains and rollback history remain together. Verify its stable project ID,
-Peer team, GitHub `zkp2p/peer-link` connection and production aliases. The move
-removes the project from the personal scope; do not delete the transferred
-project or its rollback deployment. Keep Git-triggered deploys disabled until
+The existing landing project has moved into Peer's Vercel team with its
+deployments, domains and rollback history. Its stable project ID, Peer ownership
+and GitHub `zkp2p/peer-link` connection were verified. The transfer removes the
+project from the personal scope; do not delete the transferred project or its
+rollback deployment. Keep Git-triggered deploys disabled until
 a reviewed release is explicitly promoted. The public site takes no bank input.

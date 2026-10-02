@@ -12,7 +12,7 @@ Merit displays a $500 credited balance. **Allocation to the project is pending**
 this deposit alone does not activate a funded issue. Wait for explicit funding
 confirmation and assignment in the bank issue before starting paid work.
 
-The previous unfunded $10,000 / 60-bank proposal is being retired. Its $150–$200
+The previous unfunded $10,000 / 60-bank proposal has been retired. Its $150–$200
 amounts are not offers under this program. Existing earned or assigned obligations
 must be reconciled before changing an issue; no earned payout is cancelled here.
 The initial audit found no project funding or payouts and no assigned GitHub bank
@@ -24,9 +24,9 @@ claims. The Vietcombank lead explicitly waited for funding before starting.
 | --- | ---: | --- |
 | Monobank | $50 | One completed UAH bank transfer with exact counterparty provenance; original parser, negative fixtures, docs and one authorized live report. Official statement API makes acquisition plausible; an account owner is still needed. |
 | Vietcombank | $50 | One completed VND domestic bank transfer on a named Digibank surface, with the same deliverables. Existing contributor lead makes access more plausible; they must reconfirm the smaller scope and amount. |
-| Chase | $25 | Feasibility package for one US transfer surface: authorized account access, privacy-safe field-provenance report, synthetic shape and fail-closed limitations. No promise that a parser or Peer support follows. |
-| Bank of America | $25 | Same bounded feasibility package; prove that exact recipient and payment status are available before commissioning an adapter. |
-| Wells Fargo | $25 | Same bounded feasibility package; do not treat Zelle, ACH and wire records as interchangeable. |
+| [Chase](https://github.com/zkp2p/peer-link/issues/73) | $25 | Feasibility package for one US transfer surface: authorized account access, privacy-safe field-provenance report, synthetic shape and fail-closed limitations. No promise that a parser or Peer support follows. |
+| [Bank of America](https://github.com/zkp2p/peer-link/issues/74) | $25 | Same bounded feasibility package; prove that exact recipient and payment status are available before commissioning an adapter. |
+| [Wells Fargo](https://github.com/zkp2p/peer-link/issues/75) | $25 | Same bounded feasibility package; do not treat Zelle, ACH and wire records as interchangeable. |
 
 These allocations total **$175**, leaving **$325 unassigned** from the initial
 pool. A reviewed US feasibility result may receive a separately assigned parser
@@ -62,8 +62,8 @@ See [prioritization evidence](integration-priorities.md).
    are evaluated by the named reviewer against the written criteria; disclose
    conflicts of interest.
 
-The [Merit project](https://terminal.merit.systems/zkp2p/peer-link) remains the
-allocation and payout reference until its repository transfer is reconciled.
+The [Merit project](https://terminal.merit.systems/zkp2p/peer-link) is the
+allocation and payout reference; its repository identity now matches `zkp2p/peer-link`.
 Contributors complete any tax, wallet and eligibility setup directly with Merit.
 Vietnam payout eligibility has **not** been independently confirmed; a Vietnamese
 contributor should verify the available payout route before accepting paid work.
