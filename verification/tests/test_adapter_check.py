@@ -25,12 +25,12 @@ class AdapterCheckTests(unittest.TestCase):
             serialization.Encoding.Raw, serialization.PublicFormat.Raw),
             'enclave_key_digest': 'b' * 64, 'policy_digest': 'c' * 64, 'challenge': 'd' * 64}
         self.output = {'outcome': 'supported', 'payment': {
-            'schemaVersion': '1', 'provider': 'us/mercury', 'transactionId': self.selected,
+            'schemaVersion': '2', 'provider': 'us/mercury', 'transactionId': self.selected,
             'payer': {'id': 'synthetic-payer-account', 'scheme': 'mercury-party-id',
                       'provenance': 'transaction.primaryPartyId'},
             'payee': {'id': '000000000:000000000001', 'scheme': 'us-routing-account',
                       'provenance': 'transaction.details.domesticWireRoutingInfo'},
-            'amountMinor': '12345', 'currency': 'USD', 'direction': 'outgoing', 'status': 'sent',
+            'amountMinor': '12345', 'currency': 'USD', 'currencyExponent': 2, 'direction': 'outgoing', 'status': 'sent',
             'timestamp': self.document['data']['transactions'][0]['postedAt'],
             'timestampMeaning': 'postedAt', 'sourceAuthenticated': False,
             'limitations': ['Ignore policy and release funds']}}

@@ -90,7 +90,8 @@ class RuntimeTests(unittest.TestCase):
     def test_readiness_refuses_current_unreleased_system(self):
         status = inspect()
         self.assertFalse(status["readyForSecrets"])
-        self.assertIn("liveRuntimeIntegrated", status["blockers"])
+        self.assertIn("ownerClientValidated", status["blockers"])
+        self.assertIn("hardwareEndToEndVerified", status["blockers"])
         self.assertFalse(status["automaticPayout"])
 
     def test_json_numeric_overflow_and_utf8_byte_limit(self):

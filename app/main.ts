@@ -64,7 +64,7 @@ function render(providers: Provider[]) {
       "aria-label",
       available
         ? `${integration.name}, ${place}, experimental integration in the repository. View scope and limitations.`
-        : `${integration.name}, ${place}, $${integration.amount} bounty target. View issue for terms.`,
+        : `${integration.name}, ${place}, proposed $${integration.amount} reward. Confirm funding and assignment in the issue.`,
     );
     const logo = document.createElement("span");
     logo.className = "integration-logo";
@@ -89,20 +89,20 @@ function render(providers: Provider[]) {
     meta.textContent = `${place} / ${integration.currency}`;
     const status = document.createElement("span");
     status.className = "integration-status";
-    status.textContent = available ? "In repo" : `$${integration.amount}`;
+    status.textContent = available ? "In repo" : `Proposed $${integration.amount}`;
     const tooltip = document.createElement("span");
     tooltip.className = "integration-tooltip";
     tooltip.setAttribute("aria-hidden", "true");
     tooltip.textContent = available
       ? "View experimental scope"
-      : `Build this integration for a $${integration.amount} bounty`;
+      : `Proposed $${integration.amount}; check funding and scope`;
     card.append(logo, name, meta, status, tooltip);
     list.append(card);
   }
 
   const add = document.createElement("a");
   add.className = "integration-tile add-integration";
-  add.href = "https://github.com/0xSachinK/openplaid/issues/new?template=bank-request.md";
+  add.href = "https://github.com/zkp2p/openpeer/issues/new?template=bank-request.md";
   add.setAttribute("aria-label", "Propose an integration for your bank on GitHub");
   const icon = document.createElement("span");
   icon.className = "add-icon";
